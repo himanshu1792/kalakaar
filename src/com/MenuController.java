@@ -35,6 +35,8 @@ public class MenuController {
 	public MenuController(MenuJpaService menuService){
 		this.menuService=menuService;
 	}
+	
+	public MenuController(){}
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
 	public ModelAndView pay() {

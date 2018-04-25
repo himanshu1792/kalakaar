@@ -185,53 +185,7 @@
 			<version>${jackson.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-spring3</artifactId>
-			<version>${jersey.spring.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>org.springframework</artifactId>
-					<groupId>spring-beans</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.bundles</groupId>
-			<artifactId>jaxrs-ri</artifactId>
-			<version>${jaxrs.ri.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-common</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

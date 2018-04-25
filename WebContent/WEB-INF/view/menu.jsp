@@ -23,7 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${menulist}" var="menuItem">
+			<c:forEach items="${menuList}" var="menuItem">
 				<tr>
 					<td>${menuItem.itemName}</td>
 					<td>${menuItem.price}</td>
@@ -43,6 +43,11 @@ $(document).ready(function() {
     $('#example').DataTable( {
         "pagingType": "full_numbers"
     } );
+    
+    
+    document.getElementByName("mySelect").disabled = true;
 } );
+
+
 
 </script>

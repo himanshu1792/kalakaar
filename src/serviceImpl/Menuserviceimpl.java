@@ -31,6 +31,9 @@ public class Menuserviceimpl implements MenuJpaService {
 		this.menuDao=menuDao;
 	}
 
+	public Menuserviceimpl(){}
+	
+	
 	@Override
 	@Transactional(rollbackOn=Exception.class)
 	public List<MenuItems> fetchMenuItems() {

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com")
+@ComponentScan({"com","daoimpl","serviceImpl"})
 public class ApplicationConfiguration {
 	
 	
