@@ -13,13 +13,15 @@
 <title>Kalakaar</title>
 </head>
 <body>
-	<table id="example" class="display menu" style="width: 30%" >
+
+<p style="position: fixed; top: 0; width:100%; text-align: center"><font size="6" color="red"><b><i>Kalakaar</i></b></font></p>
+<br><br><br><br>
+	<table id="example" class="display menu" style="width: 30%;height: 60%" >
 		<thead>
 			<tr>
 				<th>Name</th>
 				<th>Price</th>
 				<th>Type</th>
-
 			</tr>
 		</thead>
 		<tbody>
@@ -43,9 +45,6 @@ $(document).ready(function() {
     $('#example').DataTable( {
         "pagingType": "full_numbers"
     } );
-    
-    
-    document.getElementByName("mySelect").disabled = true;
 } );
 
 
