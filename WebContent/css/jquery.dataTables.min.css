@@ -45,6 +45,7 @@ table.dataTable tbody tr {
 }
 table.dataTable tbody tr.selected {
     background-color: #B0BED9;
+ 
 }
 table.dataTable tbody th, table.dataTable tbody td {
     padding: 8px 10px;
@@ -371,26 +372,34 @@ table.dataTable, table.dataTable th, table.dataTable td {
 #example th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #4CAF50;
     color: white;
+}
+
+#selectedmenu{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: left;
+    background-color: grey;
+    color: white;
+    margin-left:1000px;
+    border: 1px solid #ddd;
+     
 }
 
 table {
     border-collapse:separate;
     border:solid black 1px;
     border-radius:6px;
+    
     -moz-border-radius:6px;
+    margin-right:500px;
 }
 
 td, th {
     border-left:solid black 1px;
     border-top:solid black 1px;
-}
-
-th {
-    background-color: blue;
-    border-top: none;
 }
 
 td:first-child, th:first-child {
@@ -401,4 +410,29 @@ table.menu {
     width: auto;
     margin-right: 0px;
     margin-left: auto;
+}
+
+body {
+    background-image: url("kalakaar_background.jpg");
+}
+
+.example_filter_class{
+    margin-left: 530px;
+    padding-bottom:10px;
+ 
+}
+
+.wrap {
+  display: table;
+  width: 100%;
+  height: 100%; /* need to set height for this to work in Chrome */
+}
+.cell-wrap {
+  display: table-cell;
+  vertical-align: top;
+  height: 100%;
+}
+.cell-wrap.left {
+  width: 70%;
+  padding-right: 10px;  /* if you need some whitespace */
 }
