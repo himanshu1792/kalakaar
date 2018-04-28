@@ -17,6 +17,10 @@ public class MenuItems extends BaseEntity {
 	*/
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "item_code")
+	private String itemCode;
+
+
 	@Column(name = "item_name")
 	private String itemName;
 
@@ -28,6 +32,14 @@ public class MenuItems extends BaseEntity {
 
 	public String getItemName() {
 		return itemName;
+	}
+	
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
 	}
 
 	public void setItemName(String itemName) {

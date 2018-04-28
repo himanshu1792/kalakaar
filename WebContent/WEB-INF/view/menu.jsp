@@ -16,62 +16,110 @@
 <title>Kalakaar</title>
 </head>
 <body>
-<form id="menuForm">
+	<form id="menuForm">
 
-	<p style="position: relative; top: 0; width: 100%; text-align: center">
-		<font size="6" color="brown" face="Droid Sans"><b><i><u>Kalakaar</u></i></b></font>
-	</p>
-	
-	<table id="example" class="display menu"
-		style="width: 40%; height: 40%">
-		<thead>
-			<tr><b>
-				<th>NAME</th>
-				<th>PRICE</th>
-				<th>TYPE</th>
-				<th>QUANTITY</th>
-				<th>ADD ITEM</th>
-				</b>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${menuList}" var="menuItem" varStatus="item">
-				<tr id="menu_row_${item.index}" name="menu_row_${item.index}">
-					<td id="itemname_${item.index}" name="itemname_${item.index}" value="${menuItem.itemName}">${menuItem.itemName}</td>
-					<td id="price_${item.index}" name="price_${item.index}">${menuItem.price}</td>
-					<td id="type_${item.index}" name="type_${item.index}">${menuItem.type}</td>
-					<td ><input type="text" id="quantity_${item.index}" name="quantity_${item.index}" style="width:50%" value="1"/></td>
-					<td ><input type="button" id="add_${item.index}" name="add_${item.index}" value="Add" onclick="addRow('${item.index}')"/></td>
+		<p style="position: relative; top: 0; width: 100%; text-align: center">
+			<font size="6" color="brown" face="Droid Sans"><b><i><u>Kalakaar</u></i></b></font>
+		</p>
+
+		<table id="example" class="display menu"
+			style="width: 40%; height: 40%">
+			<thead>
+				<tr>
+					<b>
+						<th>NAME</th>
+						<th>CODE</th>
+						<th>PRICE</th>
+						<th>TYPE</th>
+						<th>QUANTITY</th>
+						<th>ADD ITEM</th>
+					</b>
 				</tr>
-			</c:forEach>
+			</thead>
+			<tbody>
+				<c:forEach items="${menuList}" var="menuItem" varStatus="item">
+					<tr id="menu_row_${item.index}" name="menu_row_${item.index}">
+						<td id="itemname_${item.index}" name="itemname_${item.index}">${menuItem.itemName}</td>
+						<td id="itemCode_${item.index}" name="itemCode_${item.index}">${menuItem.itemCode}</td>
+						<td id="price_${item.index}" name="price_${item.index}">${menuItem.price}</td>
+						<td id="type_${item.index}" name="type_${item.index}">${menuItem.type}</td>
+						<td><input type="text" id="quantity_${item.index}"
+							name="quantity_${item.index}" style="width: 50%" value="1" /></td>
+						<td><input type="button" id="add_${item.index}"
+							name="add_${item.index}" value="Add"
+							onclick="addRow('${item.index}')" /></td>
+					</tr>
+				</c:forEach>
 
-		</tbody>
-	</table>
-</form>
+			</tbody>
+		</table>
+	</form>
 </body>
 </html>
 
 <script>
-	$(document).ready(function() {
-		$('#example').DataTable({
-			"pagingType" : "full_numbers",
-			"pageLength": 8
-		});
-		
-		$('#example_wrapper').append('<table style="width: 40; height: 40%" border="1" id="selectedmenu"><tr><th >' + " NAME" + '</th><th >' + " PRICE" + '</th><th >' + " TYPE" + '</th><th >' + " QUANTITY" + '</th><th >' + " REMOVE" + '</th></tr></table>');
-		
-	});
-	
-	
+	$(document).ready(
+			function() {
+				$('#example').DataTable({
+					"pagingType" : "full_numbers",
+					"pageLength" : 8
+				});
+
+				$('#example_wrapper').append(
+						'<table style="width: 40; height: 40%" border="1" id="selectedmenu"><tr><th >'
+								+ "NAME" + '</th><th >' + "CODE" + '</th><th >'
+								+ "PRICE" + '</th><th >' + "TYPE"
+								+ '</th><th >' + "QUANTITY" + '</th><th >'
+								+ "REMOVE" + '</th></tr></table>');
+
+			});
+
 	function addRow(index) {
-		
-	    $('#selectedmenu').append('<tr id="selectedItem_'+index+'"><td >' + $('#itemname_'+index).text() + '</td><td >' + $('#price_'+index).text() + '</td><td >' + $('#type_'+index).text() + '</td><td >' + $('#quantity_'+index).val() + '</td><td ><input type="button" value="remove" onclick="removeRow('+index+')"/></td></tr></table>');
+
+		var item = {
+			table_number : '1' ,
+			orders : [ {
+				item_name : $('#itemname_' + index).text(),
+				item_code : $('#itemCode_' + index).text(),
+				price : $('#price_' + index).text(),
+				type : $('#type_' + index).text(),
+				quantity : $('#quantity_' + index).val()
+			} ] 
+		};
+
+		$.ajax({
+			url : 'addOrder',
+			type : 'post',
+			contentType: 'application/json',
+			dataType : 'json',
+			data : JSON.stringify(item),
+			success : function(data) {
+
+			},
+		});
+
+		if ($('#quantity_' + index).val() == 0) {
+			alert("Quantity cannot be 0");
+			return;
+		}
+
+		$('#selectedmenu')
+				.append(
+						'<tr id="selectedItem_'+index+'"><td >'
+								+ $('#itemname_' + index).text()
+								+ '</td><td >'
+								+ $('#itemCode_' + index).text()
+								+ '</td><td >'
+								+ $('#price_' + index).text()
+								+ '</td><td >'
+								+ $('#type_' + index).text()
+								+ '</td><td >'
+								+ $('#quantity_' + index).val()
+								+ '</td><td ><input type="button" value="remove" onclick="removeRow('
+								+ index + ')"/></td></tr></table>');
 	}
-	
-	
-	function removeRow(index){
-		$('#selectedItem_'+index).remove();
+
+	function removeRow(index) {
+		$('#selectedItem_' + index).remove();
 	}
-	
-	
 </script>

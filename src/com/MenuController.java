@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import entities.MenuItems;
+import entities.TableInfo;
 import service.MenuJpaService;
-
+import utils.CommonUtils;
 
 @RestController
 @RequestMapping("/v1")
 @ImportResource(value = { "classpath:applicationContext-dao-jpa-configuration.xml" })
 public class MenuController {
-	
+
 	@Autowired
 	@Qualifier("menuservice")
 	private MenuJpaService menuService;
@@ -31,23 +32,55 @@ public class MenuController {
 	public void setMenuService(MenuJpaService menuService) {
 		this.menuService = menuService;
 	}
-	
-	public MenuController(MenuJpaService menuService){
-		this.menuService=menuService;
+
+	public MenuController(MenuJpaService menuService) {
+		this.menuService = menuService;
 	}
-	
-	public MenuController(){}
+
+	public MenuController() {
+	}
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public ModelAndView pay() {
-		
-		ModelAndView modelAndView= new ModelAndView();
-		
+	public ModelAndView getMenuDetails() {
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		//fetch menu list from db
 		List<MenuItems> menuList = menuService.fetchMenuItems();
-		
+
 		modelAndView.setViewName("menu");
-		modelAndView.addObject("menuList",menuList);
+		modelAndView.addObject("menuList", menuList);
 		return modelAndView;
 	}
-	/*public ModelAndView pay(@RequestParam(value = "key") String key, @RequestBody MenuRequest request) {*/
+
+	@RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+	public void addOrderDetails(@RequestBody String body) {
+
+		try {
+			
+			TableInfo tableInfo = CommonUtils.jsonStringToObject(body,TableInfo.class);
+			//add table, order, customer and bill info 
+			menuService.addOrder(tableInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	@RequestMapping(value = "/removeOrder", method = RequestMethod.POST)
+	public void removeOrderDetails(@RequestBody String body) {
+
+		try {
+			TableInfo tableInfo = CommonUtils.jsonStringToObject(body,TableInfo.class);
+			//remove table, order, customer and bill info 
+			menuService.removeOrder(tableInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	/*
+	 * public ModelAndView pay(@RequestParam(value = "key") String
+	 * key, @RequestBody MenuRequest request) {
+	 */
 }
