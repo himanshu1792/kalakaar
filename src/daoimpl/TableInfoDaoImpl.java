@@ -83,8 +83,9 @@ public class TableInfoDaoImpl implements TableInfoDao {
 		
 		Session sess = sessionFactory.getCurrentSession();
 		Query q = sess
-				.createQuery("update Order o set o.quantity=:quantity where o.itemCode=:itemCode and o.tableInfo=:tableInfo");
+				.createQuery("update Order o set o.quantity=:quantity,o.total=:total where o.itemCode=:itemCode and o.tableInfo=:tableInfo");
 		q.setParameter("quantity", order.getQuantity());
+		q.setParameter("total", order.getTotal());
 		q.setParameter("itemCode", order.getItemCode());
 		q.setParameter("tableInfo", tableInfo);
 

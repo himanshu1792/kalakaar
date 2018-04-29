@@ -32,6 +32,7 @@ public class TableInfo extends BaseEntity {
 	
 	@Column(name = "table_number")
 	private String tableNumber;
+	
 
 	@Column(name = "bill_number")
 	private String billNumber;

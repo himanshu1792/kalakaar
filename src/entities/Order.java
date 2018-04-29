@@ -34,6 +34,17 @@ public class Order extends BaseEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	private TableInfo tableInfo;
+	
+	@Column(name = "total")
+	private String total;
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	
 
 	public TableInfo getTableInfo() {
 		return tableInfo;

@@ -20,21 +20,26 @@
 <body>
 	<form id="menuForm">
 
-		<p style="position: relative; top: 0; width: 100%; text-align: center">
-			<font size="6" color="brown" face="Droid Sans"><b><i><u>Kalakaar</u></i></b></font>
-		</p>
+		
 
 		<div id="selectItemsDiv">
+		<p style="position: absolute; top: 0; width: 100%; text-align: center">
+			<font size="6" color="brown" face="Droid Sans"><b><i><u>Kalakaar</u></i></b></font>
+		</p><br>
+			<h1 class="amountClass">Total Amount</h1>
+			<input type="text" disabled style="width:10%" class="totalAmount" id="totalAmount"/><br><br>
+			<h1 class="amountClass">Discount</h1>
+			<input type="text" style="width:10%" class="totalAmount" id="discount"/>
 			
-
 			<input id="selectedTable" type="hidden" value="${tableNumber}" />
-			<table style="width: 40; height: 1%" border="1" id="selectedmenu">
+			<table style="width: 70; height: 2% border="1" id="selectedmenu">
 				<tr>
 					<th>NAME</th>
 					<th>CODE</th>
 					<th>PRICE</th>
 					<th>TYPE</th>
 					<th>QUANTITY</th>
+					<th>TOTAL</th>
 					<th>REMOVE</th>
 				</tr>
 				<tbody>
@@ -52,7 +57,9 @@
 								name="quantityadd_${item.index}" style="width: 20%"
 								value="${orderItem.quantity}"
 								onblur="updateQuantity('${item.index}')" /></td>
-							<td><input type="button" value="remove"
+							<td><input type="text" disabled id="total_${item.index}"
+								name="total_${item.index}" style="width: 90%" value="${orderItem.total}"/></td>
+							<td><input type="button" class="button" value="Remove"
 								onclick="removeRow('${item.index}')" /></td>
 						</tr>
 					</c:forEach>
@@ -70,22 +77,10 @@
 					<option value="6">Table 6</option>
 			</select>
 			</span>
-<!-- Trigger/Open The Modal -->
-			<input type="button" id="myBtn" onclick="openPop()" value="Open Modal"></button>
 
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
-
-				<!-- Modal content -->
-				<div class="modal-content">
-					<span class="close" onclick="closePop()">&times;</span>
-					<p>Some text in the Modal..</p>
-				</div>
-
-			</div>
 		</div>
 		<table id="example" class="display menu"
-			style="width: 40%; height: 2%">
+			style="width: 70; height: 2%">
 			<thead>
 				<tr>
 					<b>
@@ -94,22 +89,22 @@
 						<th>PRICE</th>
 						<th>TYPE</th>
 						<th>QUANTITY</th>
-						<th>ADD ITEM</th>
+						<th>ADD ITEM</th> 
 					</b>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${menuList}" var="menuItem" varStatus="item">
-					<tr id="menu_row_${item.index}" name="menu_row_${item.index}">
-						<td id="itemname_${item.index}" name="itemname_${item.index}">${menuItem.itemName}</td>
-						<td id="itemCode_${item.index}" name="itemCode_${item.index}">${menuItem.itemCode}</td>
-						<td id="price_${item.index}" name="price_${item.index}">${menuItem.price}</td>
-						<td id="type_${item.index}" name="type_${item.index}">${menuItem.type}</td>
+					<tr id="menu_row_${item.index}" name="menu_row_${item.index}" height="20">
+						<td id="itemname_${item.index}" name="itemname_${item.index}" height="20">${menuItem.itemName}</td>
+						<td id="itemCode_${item.index}" name="itemCode_${item.index}" height="20">${menuItem.itemCode}</td>
+						<td id="price_${item.index}" name="price_${item.index}" height="20">${menuItem.price}</td>
+						<td id="type_${item.index}" name="type_${item.index}" height="20">${menuItem.type}</td>
 						<td><input type="text" id="quantity_${item.index}"
-							name="quantity_${item.index}" style="width: 50%" value="1" /></td>
-						<td><input type="button" id="add_${item.index}"
+							name="quantity_${item.index}" style="width: 50%" value="1" height="20"/></td>
+						<td><input type="button" class="button" id="add_${item.index}"
 							name="add_${item.index}" value="Add"
-							onclick="addRow('${item.index}')" /></td>
+							onclick="addRow('${item.index}')" height="20" /></td>
 					</tr>
 				</c:forEach>
 
@@ -151,6 +146,11 @@
 			alert("Item already added. Modify it's quatity");
 
 		} else {
+			
+			var quantity = $('#quantity_'+index).val();
+			var price = $('#price_'+index).text();
+		
+			var total = quantity*price;
 
 			var item = {
 				table_number : $("#myselect").val(),
@@ -159,7 +159,9 @@
 					item_code : $('#itemCode_' + index).text(),
 					price : $('#price_' + index).text(),
 					type : $('#type_' + index).text(),
-					quantity : $('#quantity_' + index).val()
+					quantity : $('#quantity_' + index).val(),
+					total : total,
+					
 				} ]
 			};
 
@@ -198,8 +200,14 @@
 									+ '" onblur="updateQuantity('
 									+ index
 									+ ')" />'
-									+ '</td><td ><input type="button" value="remove" onclick="removeRow('
+									+'<td><input type="text" disabled id="total_'+index+'"'
+									+'	name="total_'+index+'" style="width: 90%" /></td>'
+									+ '</td><td ><input type="button" class="button" value="Remove" onclick="removeRow('
 									+ index + ')"/></td></tr></table>');
+			
+			
+			$('#total_'+index).val(total);
+					
 		}
 	}
 
@@ -231,6 +239,12 @@
 	}
 
 	function updateQuantity(index) {
+		
+		var quantity = $('#quantityadd_'+index).val();
+		var price = $('#priceadd_'+index).text();
+	
+		var total = quantity*price;
+		$('#total_'+index).val(total);
 
 		var item = {
 			table_number : $("#myselect").val(),
@@ -239,7 +253,8 @@
 				item_code : $('#itemCodeadd_' + index).text(),
 				price : $('#priceadd_' + index).text(),
 				type : $('#typeadd_' + index).text(),
-				quantity : $('#quantityadd_' + index).val()
+				quantity : $('#quantityadd_' + index).val(),
+				total : total,
 			} ]
 		};
 
