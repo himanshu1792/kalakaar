@@ -13,4 +13,8 @@ public interface MenuJpaService {
 
 	public void removeOrder(TableInfo tableInfo);
 
+	public void modifOrderQuantity(TableInfo tableInfo);
+	
+	public TableInfo fetchTableInfo(String tableNumber);
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -48,7 +49,7 @@ public class TableInfo extends BaseEntity {
 	private String customerPhone;
 	
 
-	@OneToMany(orphanRemoval = false, cascade = { CascadeType.ALL }, mappedBy = "tableInfo")
+	@OneToMany(orphanRemoval = false, cascade = { CascadeType.ALL }, mappedBy = "tableInfo",fetch=FetchType.EAGER)
 	private List<Order> orders = new ArrayList<Order>();
 	
 	@Enumerated(EnumType.STRING)

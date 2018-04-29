@@ -2,6 +2,8 @@ package com;
 
 import java.util.List;
 
+import javax.ws.rs.QueryParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ImportResource;
@@ -41,15 +43,23 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public ModelAndView getMenuDetails() {
+	public ModelAndView getMenuDetails(@QueryParam("tableNumber") String tableNumber) {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		//fetch menu list from db
+		// fetch menu list from db
 		List<MenuItems> menuList = menuService.fetchMenuItems();
+		String tableNo = tableNumber==null? "1" : tableNumber;
+		
+		TableInfo tableInfo = menuService.fetchTableInfo(tableNo);
 
 		modelAndView.setViewName("menu");
 		modelAndView.addObject("menuList", menuList);
+		
+		modelAndView.addObject("tableNumber", tableNumber);
+		if (tableInfo != null){
+			modelAndView.addObject("orderList", tableInfo.getOrders());
+		}
 		return modelAndView;
 	}
 
@@ -57,30 +67,39 @@ public class MenuController {
 	public void addOrderDetails(@RequestBody String body) {
 
 		try {
-			
-			TableInfo tableInfo = CommonUtils.jsonStringToObject(body,TableInfo.class);
-			//add table, order, customer and bill info 
+
+			TableInfo tableInfo = CommonUtils.jsonStringToObject(body, TableInfo.class);
+			// add table, order, customer and bill info
 			menuService.addOrder(tableInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/removeOrder", method = RequestMethod.POST)
 	public void removeOrderDetails(@RequestBody String body) {
 
 		try {
-			TableInfo tableInfo = CommonUtils.jsonStringToObject(body,TableInfo.class);
-			//remove table, order, customer and bill info 
+			TableInfo tableInfo = CommonUtils.jsonStringToObject(body, TableInfo.class);
+			// remove table, order, customer and bill info
 			menuService.removeOrder(tableInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	/*
-	 * public ModelAndView pay(@RequestParam(value = "key") String
-	 * key, @RequestBody MenuRequest request) {
-	 */
+
+	@RequestMapping(value = "/modifyOrderQuatity", method = RequestMethod.POST)
+	public void modifyOrderQuantity(@RequestBody String body) {
+
+		try {
+			TableInfo tableInfo = CommonUtils.jsonStringToObject(body, TableInfo.class);
+			// remove table, order, customer and bill info
+			menuService.modifOrderQuantity(tableInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }

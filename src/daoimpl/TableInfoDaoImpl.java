@@ -1,16 +1,12 @@
 package daoimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import dao.TableInfoDao;
-import entities.MenuItems;
+import entities.Order;
 import entities.TableInfo;
 import enums.TableStatus;
 
@@ -77,6 +73,22 @@ public class TableInfoDaoImpl implements TableInfoDao {
 
 		q.executeUpdate();
 
+		
+	}
+
+	@Override
+	public void modifOrderQuantity(TableInfo tableInfo, Order order) {
+		// TODO Auto-generated method stub
+		
+		
+		Session sess = sessionFactory.getCurrentSession();
+		Query q = sess
+				.createQuery("update Order o set o.quantity=:quantity where o.itemCode=:itemCode and o.tableInfo=:tableInfo");
+		q.setParameter("quantity", order.getQuantity());
+		q.setParameter("itemCode", order.getItemCode());
+		q.setParameter("tableInfo", tableInfo);
+
+		q.executeUpdate();
 		
 	}
 

@@ -117,4 +117,24 @@ public class Menuserviceimpl implements MenuJpaService {
 		tableInfoDao.addOrderToTable(tableDetails);
 	}
 
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void modifOrderQuantity(TableInfo tableInfo) {
+		
+		TableInfo tableDetails = tableInfoDao.fetchTableInfo(tableInfo.getTableNumber());
+		Order order = tableInfo.getOrders().get(0);
+		tableInfoDao.modifOrderQuantity(tableDetails,order);
+		
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public TableInfo fetchTableInfo(String tableNumber) {
+		// TODO Auto-generated method stub
+		
+		return tableInfoDao.fetchTableInfo(tableNumber);
+		
+		
+	}
+
 }
