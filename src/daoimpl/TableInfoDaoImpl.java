@@ -93,4 +93,13 @@ public class TableInfoDaoImpl implements TableInfoDao {
 		
 	}
 
+	@Override
+	public void closeTable(TableInfo tableInfo) {
+		// TODO Auto-generated method stub
+		
+		Session sess = sessionFactory.getCurrentSession();
+		sess.saveOrUpdate(tableInfo);
+		
+	}
+
 }

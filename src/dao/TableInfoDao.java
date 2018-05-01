@@ -11,5 +11,6 @@ public interface TableInfoDao {
 	public TableInfo fetchTableInfo(String tableNumber);
 	public void deleteOrder(TableInfo tableInfo, String orderId);
 	public void modifOrderQuantity(TableInfo tableInfo, Order order);
+	public void closeTable(TableInfo tableInfo);
 
 }

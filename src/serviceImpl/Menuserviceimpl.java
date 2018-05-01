@@ -137,4 +137,12 @@ public class Menuserviceimpl implements MenuJpaService {
 		
 	}
 
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void closeTable(TableInfo tableInfo) {
+		
+		tableInfoDao.closeTable(tableInfo);
+		
+	}
+
 }

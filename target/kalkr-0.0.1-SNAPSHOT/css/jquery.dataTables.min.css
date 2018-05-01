@@ -355,7 +355,8 @@ table.dataTable, table.dataTable th, table.dataTable td {
 #example {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 40%;
+    position: relative;
     
 }
 
@@ -386,6 +387,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
     border: 1px solid #ddd;
     position: absolute;
     margin-top: 88px;
+    margin-left: 700px;
      
 }
 
@@ -475,4 +477,29 @@ body {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+.button {
+    background-color: grey; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.amountClass{
+	
+	margin-left: 900px;
+	position: absolute;
+}
+
+.totalAmount{
+	margin-left: 1100px;
+	position: absolute;
+	margin-top: 30px;
+	
 }

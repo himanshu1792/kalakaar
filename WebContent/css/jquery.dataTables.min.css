@@ -355,7 +355,8 @@ table.dataTable, table.dataTable th, table.dataTable td {
 #example {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 40%;
+    position: relative;
     
 }
 

@@ -17,5 +17,6 @@ com\MenuController.class
 com\MenuRequest.class
 appconfig\ApplicationInitializer.class
 entities\EntityListener.class
+utils\GenetarePdf.class
 enums\TableStatus.class
 entities\MenuItems.class

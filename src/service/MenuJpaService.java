@@ -17,4 +17,6 @@ public interface MenuJpaService {
 	
 	public TableInfo fetchTableInfo(String tableNumber);
 
+	public void closeTable(TableInfo tableInfo);
+
 }
